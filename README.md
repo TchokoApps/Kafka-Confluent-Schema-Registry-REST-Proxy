@@ -16,21 +16,20 @@ Avro examples by Gwen Shapira: [https://github.com/gwenshap/kafka-examples](http
 Follow this link https://docs.confluent.io/platform/current/installation/installing_cp/zip-tar.html#prod-kafka-cli-install and read the instruction.
 
 ## Start Confluent Platform
-Step 1: 
-Change the listening port of the zookeeper
-If you cannot start zookeeper on port 2181 to clientPort=8181 for instance 
-Filename is: C:\softwares\confluent-6.2.0\etc\kafka\zookeeper.properties
 
-Step 2:
-Start ZooKeeper. Run this command in its own terminal
-C:\softwares\confluent-6.2.0\bin>zookeeper-server-start ..\etc\kafka\zookeeper.properties
+Step 1: Change the listening port of the zookeeper 
 
-Step 3:
-Change this parameter to: zookeeper.connect=localhost:8181
-Location: C:\softwares\confluent-6.2.0\etc\kafka\server.properties
+    If you cannot start zookeeper on port 2181 to clientPort=8181 for instance     
+    Filename is: C:\softwares\confluent-6.2.0\etc\kafka\zookeeper.properties
 
-Step 4:
-Start Kafka Server. Run this command in its own terminal
-C:\softwares\confluent-6.2.0\bin>kafka-server-start ..\etc\kafka\server.properties
+Step 2: Start ZooKeeper. Run this command in its own terminal
 
+    C:\softwares\confluent-6.2.0\bin>zookeeper-server-start ..\etc\kafka\zookeeper.properties
 
+Step 3: Change this parameter to: zookeeper.connect=localhost:8181
+    
+    Location: C:\softwares\confluent-6.2.0\etc\kafka\server.properties
+
+Step 4: Start Kafka Server. Run this command in its own terminal
+
+    C:\softwares\confluent-6.2.0\bin>kafka-server-start ..\etc\kafka\server.properties
