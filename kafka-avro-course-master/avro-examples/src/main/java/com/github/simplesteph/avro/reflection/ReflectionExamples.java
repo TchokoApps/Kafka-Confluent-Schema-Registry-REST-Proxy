@@ -15,12 +15,20 @@ import java.io.IOException;
 
 public class ReflectionExamples {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         // here we use reflection to determine the schema
         Schema schema = ReflectData.get().getSchema(ReflectedCustomer.class);
         System.out.println("schema = " + schema.toString(true));
 
+        // Generate schema from pojo to file
+
+        File newFile = new File("customer-reflected-schema.avsc");
+        DatumWriter<ReflectedCustomer> datumWriter = new ReflectDatumWriter<>(ReflectedCustomer.class);
+        DataFileWriter<ReflectedCustomer> dataFileWriter = new DataFileWriter<>(datumWriter);
+        Schema newSchema = ReflectData.get().getSchema(ReflectedCustomer.class);
+        dataFileWriter.create(newSchema, newFile);
+        dataFileWriter.close();
 
         // create a file of ReflectedCustomers
         try {

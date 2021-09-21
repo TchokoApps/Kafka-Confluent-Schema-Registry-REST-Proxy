@@ -11,24 +11,23 @@ import org.apache.avro.specific.SpecificDatumWriter;
 import java.io.File;
 import java.io.IOException;
 
-public class SpecificRecordExamples {
+public class SpecificRecordExamplesTwo {
 
     public static void main(String[] args) {
-
-        // we can now build a customer in a "safe" way
+        // Step 1: create specific record
         Customer.Builder customerBuilder = Customer.newBuilder();
-        customerBuilder.setAge(30);
-        customerBuilder.setFirstNme("Mark");
-        customerBuilder.setLastName("Simpson");
-        customerBuilder.setAutomatedEmail(true);
-        customerBuilder.setHeight(180f);
-        customerBuilder.setWeight(90f);
+
+        customerBuilder.setFirstNme("Alain");
+        customerBuilder.setLastName("Tientcheu");
+        customerBuilder.setAge(25);
+        customerBuilder.setHeight(185f);
+        customerBuilder.setWeight(100f);
 
         Customer customer = customerBuilder.build();
-        System.out.println(customer.toString());
 
+        System.out.println("Customer: " + customer);
 
-        // write it out to a file
+        // Step 2: Write to file
         final DatumWriter<Customer> datumWriter = new SpecificDatumWriter<>(Customer.class);
 
         try (DataFileWriter<Customer> dataFileWriter = new DataFileWriter<>(datumWriter)) {
@@ -39,8 +38,7 @@ public class SpecificRecordExamples {
             e.printStackTrace();
         }
 
-
-        // read it from a file
+        // Step 3: Read from file
         final File file = new File("customer-specific.avro");
         final DatumReader<Customer> datumReader = new SpecificDatumReader<>(Customer.class);
         final DataFileReader<Customer> dataFileReader;
@@ -51,23 +49,6 @@ public class SpecificRecordExamples {
                 Customer readCustomer = dataFileReader.next();
                 System.out.println(readCustomer.toString());
                 System.out.println("First name: " + readCustomer.getFirstNme());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        // note, we can read our other customer generated using the generic method!
-        // end of the day, no matter the method, Avro is Avro!
-        final File fileGeneric = new File("customer-generic.avro");
-        final DatumReader<Customer> datumReaderGeneric = new SpecificDatumReader<>(Customer.class);
-        final DataFileReader<Customer> dataFileReaderGeneric;
-        try {
-            System.out.println("Reading our specific record");
-            dataFileReaderGeneric = new DataFileReader<>(fileGeneric, datumReaderGeneric);
-            while (dataFileReaderGeneric.hasNext()) {
-                Customer readCustomer = dataFileReaderGeneric.next();
-                System.out.println(readCustomer.toString());
             }
         } catch (IOException e) {
             e.printStackTrace();

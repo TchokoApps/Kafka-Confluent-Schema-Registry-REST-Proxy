@@ -1,0 +1,23 @@
+{
+  "type": "record",
+  "name": "ReflectedCustomer",
+  "namespace": "com.github.simplesteph.avro.reflection",
+  "fields": [
+    {
+      "name": "firstName",
+      "type": "string"
+    },
+    {
+      "name": "lastName",
+      "type": "string"
+    },
+    {
+      "name": "nickName",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    }
+  ]
+}
